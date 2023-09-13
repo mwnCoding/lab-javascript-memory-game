@@ -71,7 +71,7 @@ window.addEventListener('load', (event) => {
           
           if (memoryGame.checkIfFinished()) {
             let h2 = document.createElement('h2');
-            h2.innerHTML = 'You Win!';
+            h2.innerHTML = 'You won!!!';
             document.querySelector('#memory-board').append(h2);
           }
         }
