@@ -58,5 +58,6 @@ class MemoryGame {
 
   checkIfFinished() {
     // ... write your code here
+    return this.cards.length / 2 === this.pairsGuessed;
   }
 }
