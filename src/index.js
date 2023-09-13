@@ -45,7 +45,38 @@ window.addEventListener('load', (event) => {
   document.querySelectorAll('.card').forEach((card) => {
     card.addEventListener('click', () => {
       // TODO: write some code here
-      console.log(`Card clicked: ${card}`);
+      if (!card.classList.contains('turned')) {
+        if (memoryGame.pickedCards.length === 0) {
+          memoryGame.pickedCards.push(card);
+          card.classList.toggle('turned');
+          console.log(memoryGame.pickedCards);
+        }
+        else if (memoryGame.pickedCards.length === 1) {
+          memoryGame.pickedCards.push(card);
+          card.classList.toggle('turned');
+          const isPair = memoryGame.checkIfPair(memoryGame.pickedCards[0].getAttribute('data-card-name'), memoryGame.pickedCards[1].getAttribute('data-card-name'));
+          document.querySelector('#pairs-clicked').innerHTML = memoryGame.pairsClicked;
+          document.querySelector('#pairs-guessed').innerHTML = memoryGame.pairsGuessed;
+
+          if (!isPair) {
+            setTimeout(function () {
+              memoryGame.pickedCards[0].classList.toggle('turned');
+              memoryGame.pickedCards[1].classList.toggle('turned');
+            }, 1000)
+          }
+
+          setTimeout(function () {
+            memoryGame.pickedCards = [];
+          }, 1000)
+          
+          if (memoryGame.checkIfFinished()) {
+            let h2 = document.createElement('h2');
+            h2.innerHTML = 'You Win!';
+            document.querySelector('#memory-board').append(h2);
+          }
+        }
+      }
     });
   });
 });
+
